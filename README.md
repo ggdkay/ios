@@ -21,3 +21,6 @@ swiftScan
 
 ios demo 
 #### AVPlayer [BMPlayer]:(https://github.com/BrikerMan/BMPlayer)
+
+iOS
+［响应式编程］（http://fleurer-lee.com/lyah/introduction.htm#关于这个教程）
