@@ -12,8 +12,7 @@
 
 ```
 
-
-    var circleView : UIImageView!
+  var circleView : UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -26,7 +25,8 @@
         circleView.layer.borderColor = UIColor.lightGrayColor().CGColor
         circleView.layer.borderWidth = 8
         self.view.addSubview(circleView)
-        
+       // initRotationAnimation(circleView)
+
         let  initbtn = UIButton.init()
         initbtn.frame = CGRectMake(50, 300, 80, 40)
         initbtn.backgroundColor = UIColor.lightGrayColor()
@@ -48,28 +48,37 @@
         self.view.addSubview(playBtn)
         playBtn.addTarget(self, action: #selector(playClick(_:)), forControlEvents: .TouchUpInside)
         
-        initRotationAnimation(circleView)
-        
+        let  resetbtn = UIButton.init()
+        resetbtn.frame = CGRectMake(50, 450, 80, 40)
+        resetbtn.backgroundColor = UIColor.lightGrayColor()
+        resetbtn.setTitle("resetbtn", forState: .Normal)
+        self.view.addSubview(resetbtn)
+        resetbtn.addTarget(self, action: #selector(resetClick(_:)), forControlEvents: .TouchUpInside)
     }
     
     func initClick(sender : UIButton){
-    //MARK: - can stop by pause / play
-        circleView.layer.removeAllAnimations()
-        
-        initRotationAnimation(circleView)
+    
+         initRotationAnimation(circleView)
         
     }
     
-    func pauseClick(sender : UIButton){
+    
+    func resetClick(sender : UIButton){
+   
+       playRotationAnimation(circleView)
+       initRotationAnimation(circleView)
         
+    }
+    
+   
+    func pauseClick(sender : UIButton){
         
        pauseRoationAnimation(circleView)
         
     }
     
     func playClick(sender : UIButton){
-        
-        playRotationAnimation(circleView)
+         playRotationAnimation(circleView)
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,16 +89,26 @@
     
     //circle init rotate 图片旋转动画
     internal func initRotationAnimation(someView : UIView){
+         circleView.layer.removeAllAnimations()
         let rotation=CABasicAnimation(keyPath: "transform.rotation.z")
         rotation.timingFunction=CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
         rotation.toValue=2*M_PI
-        rotation.duration=16
-        rotation.repeatCount=HUGE
-        rotation.autoreverses=false
+        rotation.duration=10
+        rotation.repeatCount=FLT_MAX
+        rotation.cumulative=true
+//        rotation.autoreverses=false
         someView.layer.addAnimation(rotation, forKey: "rotationAnimation")
     }
     
-    
+    func resetRotationAnimation(someView : UIView){
+        let pausedTime = someView.layer.timeOffset
+        let sumTime = someView.layer.convertTime(CACurrentMediaTime(), fromLayer: nil)
+        someView.layer.speed = 0
+        
+        let timeSinceZero = pausedTime
+        someView.layer.beginTime = timeSinceZero
+    }
+   
 
     func pauseRoationAnimation(someView : UIView){
         let pausedTime = someView.layer.convertTime(CACurrentMediaTime(), fromLayer: nil)
@@ -108,6 +127,8 @@
         let timeSincePause = someView.layer.convertTime(CACurrentMediaTime(), fromLayer: nil)-pausedTime
         someView.layer.beginTime = timeSincePause
     }
+    
+
 
 
 ```
