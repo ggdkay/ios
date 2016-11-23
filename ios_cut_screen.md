@@ -1,5 +1,13 @@
 ## screenShot
 
+>1 ImageHelper help with many function  
+
+https://github.com/melvitax/ImageHelper
+
+>2 how to use ? goto hangg.com 
+
+http://www.hangge.com/blog/cache/detail_757.html
+
  --- 
  
  func screenShot() -> UIImage {
