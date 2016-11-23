@@ -1,7 +1,9 @@
 ## screenShot
 
- >
+ --- 
+ 
  func screenShot() -> UIImage {
+ 
          //UIGraphicsBeginImageContext(self.view.bounds.size)
         UIGraphicsBeginImageContextWithOptions(self.view.bounds.size, true, UIScreen.mainScreen().scale)
         self.view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
@@ -20,8 +22,12 @@
   
         return screenShotImage
     }
+    
+---
 
+--- swift file data 
 
-> file data 
       let filePath: String = NSBundle.mainBundle().pathForResource("res5", ofType: "jpg")!
        fileData = NSData.init(contentsOfFile: filePath)
+       
+---
